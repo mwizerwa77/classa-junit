@@ -1,6 +1,7 @@
 package com.example.classajunit.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,13 @@ public class ItemService {
 			item.setValue(item.getPrice()*item.getQuantity());
 		}
 		return items;
+	}
+
+	public Item getById(int id) {
+		Optional<Item> itemOption = itemRepository.findById(id);
+		if(itemOption.isPresent()) {
+			return itemOption.get();
+		}
+		return null;
 	}
 }

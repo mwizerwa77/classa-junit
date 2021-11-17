@@ -45,4 +45,19 @@ public class ItemControllerTest {
 						"[{\"id\":1,\"name\":\"Samuel\",\"price\":1,\"quantity\":10},{\"id\":2,\"name\":\"Blessing\",\"price\":4}]"))
 				.andReturn();
 	}
+	
+	@Test
+	public void getOne_success() throws Exception {
+
+		when(itemServiceMock.getById(1))
+				.thenReturn(new Item(1, "Samuel", 1, 10));
+
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/all-items/1")
+				.accept(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(request).andExpect(status().isOk())
+				.andExpect(content().json(
+						"{\"id\":1,\"name\":\"Samuel\",\"price\":1,\"quantity\":10}"))
+				.andReturn();
+	}
 }
