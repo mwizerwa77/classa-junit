@@ -8,8 +8,14 @@ import javax.persistence.Transient;
 @Entity
 public class Item {
 
+	public Item(int id, String name, int price, int quantity) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
 	@Id
-	@GeneratedValue
 	private int id;
 	
 	private String name;
@@ -18,9 +24,16 @@ public class Item {
 	
 	private int quantity;
 	
+	
 	@Transient
 	private int value;
+
 	
+	public Item() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -60,5 +73,5 @@ public class Item {
 	public void setValue(int value) {
 		this.value = value;
 	}
-
+	
 }
