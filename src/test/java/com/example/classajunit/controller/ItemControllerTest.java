@@ -60,4 +60,18 @@ public class ItemControllerTest {
 						"{\"id\":1,\"name\":\"Samuel\",\"price\":1,\"quantity\":10}"))
 				.andReturn();
 	}
+	
+	@Test
+	public void getOne_notFound() throws Exception {
+
+		when(itemServiceMock.getById(1))
+				.thenReturn(null);
+
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/all-items/1")
+				.accept(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(request).andExpect(status().isNotFound())
+				.andExpect(content().json("{\"status\":false,\"message\":\"Item not found\"}"))
+				.andReturn();
+	}
 }
