@@ -8,4 +8,6 @@ import com.example.classajunit.model.Item;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer>{
 
+	boolean existsByName(String name);
+
 }
