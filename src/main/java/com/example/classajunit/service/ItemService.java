@@ -30,7 +30,9 @@ public class ItemService {
 	public Item getById(int id) {
 		Optional<Item> itemOption = itemRepository.findById(id);
 		if(itemOption.isPresent()) {
-			return itemOption.get();
+			Item item = itemOption.get();
+			item.setValue(item.getPrice()*item.getQuantity());
+			return item;
 		}
 		return null;
 	}
@@ -50,5 +52,15 @@ public class ItemService {
 			return ResponseEntity.status(HttpStatus.CREATED).body(item);
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item does not exist");
+	}
+	public ResponseEntity<?>  save(UpdateItemDto dto) {
+		Item item = new Item();
+		item.setId(105);
+		item.setName(dto.getName());
+		item.setPrice(dto.getPrice());
+		item.setQuantity(dto.getQuantity());
+		item.setValue(item.getPrice()*item.getQuantity());
+		itemRepository.save(item);
+		return ResponseEntity.status(HttpStatus.CREATED).body(item);
 	}
 }
